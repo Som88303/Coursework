@@ -10,13 +10,12 @@ import javax.ws.rs.core.MediaType;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import static Server.Main.db;
 class ListUsers {
     @GET
     @Path("list")
     @Produces(MediaType.APPLICATION_JSON)
     public static String listUsers() {
-        System.out.println("things/list");
+        System.out.println("Users list");
         JSONArray list = new JSONArray();
         try {
 
@@ -46,18 +45,23 @@ class InsertUser {
     @Path("new")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
-    public String insertThing(
-            @FormDataParam("id") Integer id, @FormDataParam("name") String name, @FormDataParam("quantity") Integer quantity) {
+    public String insertUser(
+            @FormDataParam("UserID") Integer UserID, @FormDataParam("FirstName") String FirstName, @FormDataParam("LastName") String LastName, @FormDataParam("DateOfBirth") String DateOfBirth, @FormDataParam("Gender") String Gender, @FormDataParam("Age") Integer Age,@FormDataParam("Username") String Username, @FormDataParam("Password") String Password){
         try {
-            if (id == null || name == null || quantity == null) {
+            if (UserID == null || FirstName == null || LastName == null || DateOfBirth == null || Gender == null || Age == null || Username == null || Password == null ) {
                 throw new Exception("One or more form data parameters are missing in the HTTP request.");
             }
-            System.out.println("thing/new id=" + id);
+            System.out.println("User/new UserID=" + UserID);
 
-            PreparedStatement ps = Main.db.prepareStatement("INSERT INTO Things (Id, Name, Quantity) VALUES (?, ?, ?)");
-            ps.setInt(1, id);
-            ps.setString(2, name);
-            ps.setInt(3, quantity);
+            PreparedStatement ps = Main.db.prepareStatement("INSERT INTO Users (UserID,FirstName,LastName,DateOfBirth,Gender,Age,Username,Password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+            ps.setInt(1, UserID);
+            ps.setString(2, FirstName);
+            ps.setString(3, LastName);
+            ps.setString(4, DateOfBirth);
+            ps.setString(5, Gender);
+            ps.setInt(6, Age);
+            ps.setString(7, Username);
+            ps.setString(8, Password);
             ps.execute();
             return "{\"status\": \"OK\"}";
 
@@ -74,18 +78,23 @@ class UpdateUser{
     @Path("update")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
-    public String updateThing(
-            @FormDataParam("id") Integer id, @FormDataParam("name") String name, @FormDataParam("quantity") Integer quantity) {
+    public String updateUser(
+            @FormDataParam("UserID") Integer UserID, @FormDataParam("FirstName") String FirstName, @FormDataParam("LastName") String LastName, @FormDataParam("DateOfBirth") String DateOfBirth, @FormDataParam("Gender") String Gender, @FormDataParam("Age") Integer Age,@FormDataParam("Username") String Username, @FormDataParam("Password") String Password){
         try {
-            if (id == null || name == null || quantity == null) {
+            if (UserID == null || FirstName == null || LastName == null || DateOfBirth == null || Gender == null || Age == null || Username == null || Password == null ) {
                 throw new Exception("One or more form data parameters are missing in the HTTP request.");
             }
-            System.out.println("thing/update id=" + id);
+            System.out.println("User/new id=" + UserID);
 
-            PreparedStatement ps = Main.db.prepareStatement("UPDATE Things SET Name = ?, Quantity = ? WHERE Id = ?");
-            ps.setString(1, name);
-            ps.setInt(2, quantity);
-            ps.setInt(3, id);
+            PreparedStatement ps = Main.db.prepareStatement("UPDATE Users SET FirstName = ?,LastName = ?,DateOfBirth = ?,Gender = ?,Age = ?,Username = ?,Password = ? WHERE UserID = ?");
+            ps.setString(1, FirstName);
+            ps.setString(2, LastName);
+            ps.setString(3, DateOfBirth);
+            ps.setString(4, Gender);
+            ps.setInt(5, Age);
+            ps.setString(6, Username);
+            ps.setString(7, Password);
+            ps.setInt(8, UserID);
             ps.execute();
             return "{\"status\": \"OK\"}";
 
@@ -101,15 +110,15 @@ class DeleteUser{
     @Path("delete")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
-    public String deleteThing(@FormDataParam("UserID") Integer UserID) {
+    public String deleteUser(@FormDataParam("UserID") Integer UserID) {
 
         try {
             if (UserID == null) {
                 throw new Exception("One or more form data parameters are missing in the HTTP request.");
             }
-            System.out.println("thing/delete id=" + UserID);
+            System.out.println("User/delete UserID=" + UserID);
 
-            PreparedStatement ps = Main.db.prepareStatement("DELETE FROM Users WHERE Id = ?");
+            PreparedStatement ps = Main.db.prepareStatement("DELETE FROM Users WHERE UserID = ?");
 
             ps.setInt(1, UserID);
 
