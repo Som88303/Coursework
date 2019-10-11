@@ -1,4 +1,4 @@
-package Controllers;
+package Controllers.Users;
 
 import Server.Main;
 import com.sun.jersey.multipart.FormDataParam;
@@ -10,7 +10,7 @@ import javax.ws.rs.core.MediaType;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 @Path("Users")
-public class Users {
+public class UserList {
     @GET
     @Path("list")
     @Produces(MediaType.APPLICATION_JSON)
@@ -39,4 +39,5 @@ public class Users {
             return "{\"error\": \"Unable to list items, please see server console for more info.\"}";
         }
     }
+
 }

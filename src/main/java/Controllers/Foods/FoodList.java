@@ -1,4 +1,4 @@
-package Controllers;
+package Controllers.Foods;
 
 import Server.Main;
 import com.sun.jersey.multipart.FormDataParam;
@@ -9,8 +9,8 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-@Path("food")
-public class Foods {
+@Path("foods")
+public class FoodList {
     @GET
     @Path("list")
     @Produces(MediaType.APPLICATION_JSON)
