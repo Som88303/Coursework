@@ -59,17 +59,17 @@ public class Foods {
         }
     }
 
-    public static void InsertFood() {
+    public static void InsertFood(int FoodID, String Foodname, int Proteins, int Carbohydrates, int Fats, int CalPerHundredGrams, int HealthyPoints, int PortionSize) {
         try {
             PreparedStatement ps = Main.db.prepareStatement("INSERT INTO Foods(FoodID, Foodname, Proteins, Carbohydrates, Fats, CalPerHundredGrams, HealthyPoints, PortionSize) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-            ps.setInt(1, 1);
-            ps.setString(2, "Chicken");
-            ps.setInt(3, 23);
-            ps.setInt(4, 14);
-            ps.setInt(5, 124);
-            ps.setInt(6, 100);
-            ps.setInt(7, 1);
-            ps.setInt(8, 100);
+            ps.setInt(1, FoodID);
+            ps.setString(2, Foodname);
+            ps.setInt(3, Proteins);
+            ps.setInt(4, Carbohydrates);
+            ps.setInt(5, Fats);
+            ps.setInt(6, CalPerHundredGrams);
+            ps.setInt(7, HealthyPoints);
+            ps.setInt(8, PortionSize);
             ps.executeUpdate();
             System.out.println();
         } catch (Exception exception) {
@@ -85,8 +85,9 @@ public class Foods {
             PreparedStatement ps = Main.db.prepareStatement("DELETE FROM Foods WHERE FoodID = ?");
 
             ps.setInt(1, FoodID);
-
             ps.execute();
+            System.out.print("FoodID: " + FoodID+ " deleted \n");
+
 
         } catch (Exception exception) {
             System.out.println("Database error: " + exception.getMessage());

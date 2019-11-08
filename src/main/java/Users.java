@@ -4,17 +4,17 @@ import java.sql.ResultSet;
 public class Users {
 
 
-    public static void InsertUser() {
+    public static void InsertUser(int UserID, String FirstName, String LastName, String DateOfBirth, String Gender, int Age, String Username, String Password) {
         try {
             PreparedStatement ps = Main.db.prepareStatement("INSERT INTO Users(UserID, FirstName, LastName, DateOfBirth, Gender, Age, Username, Password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-            ps.setInt(1, 1);
-            ps.setString(2, "Som");
-            ps.setString(3, "Gurung");
-            ps.setString(4, "1/07/2002");
-            ps.setString(5, "Male");
-            ps.setInt(6, 17);
-            ps.setString(7, "SomGurung");
-            ps.setString(8, "GurungSom");
+            ps.setInt(1, UserID);
+            ps.setString(2, FirstName);
+            ps.setString(3, LastName);
+            ps.setString(4, DateOfBirth);
+            ps.setString(5, Gender);
+            ps.setInt(6, Age);
+            ps.setString(7, Username);
+            ps.setString(8, Password);
             ps.executeUpdate();
             System.out.println();
         } catch (Exception exception) {
@@ -53,8 +53,6 @@ public class Users {
         } catch (Exception exception) {
             System.out.println("Database error: " + exception.getMessage());
         }
-
-
     }
 
     public static void UpdateUser(int UserID, String FirstName, String LastName, String DateOfBirth, String Gender, int Age, String Username, String Password) {
@@ -87,8 +85,8 @@ public class Users {
             PreparedStatement ps = Main.db.prepareStatement("DELETE FROM Users WHERE UserID = ?");
 
             ps.setInt(1, UserID);
-
             ps.execute();
+            System.out.print("UserID: " + UserID+ " deleted \n");
 
         } catch (Exception exception) {
             System.out.println("Database error: " + exception.getMessage());

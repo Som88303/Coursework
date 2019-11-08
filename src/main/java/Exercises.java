@@ -3,12 +3,12 @@ import java.sql.ResultSet;
 
 public class Exercises {
 
-    public static void InsertExercise() {
+    public static void InsertExercise(int ExerciseID, String ExerciseName, int CalPerHour) {
         try {
             PreparedStatement ps = Main.db.prepareStatement("INSERT INTO Exercises(ExerciseID, ExerciseName, CalPerHour) VALUES (?, ?, ?)");
-            ps.setInt(1, 1);
-            ps.setString(2, "Jumping Jacks");
-            ps.setInt(3, 123);
+            ps.setInt(1, ExerciseID);
+            ps.setString(2, ExerciseName);
+            ps.setInt(3, CalPerHour);
             ps.executeUpdate();
             System.out.println();
         } catch (Exception exception) {
@@ -66,8 +66,8 @@ public class Exercises {
             PreparedStatement ps = Main.db.prepareStatement("DELETE FROM Exercises WHERE ExerciseID = ?");
 
             ps.setInt(1, ExerciseID);
-
             ps.execute();
+            System.out.print("ExerciseID: " + ExerciseID+ " deleted \n");
 
         } catch (Exception exception) {
             System.out.println("Database error: " + exception.getMessage());

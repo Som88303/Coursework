@@ -3,16 +3,16 @@ import java.sql.ResultSet;
 
 public class Consumed {
 
-    public static void InsertConsumed() {
+    public static void InsertConsumed(int ConsumedID, int FoodID, int UserID, String MealType, int PortionSize, String DateEaten,int HealthyPoints) {
         try {
             PreparedStatement ps = Main.db.prepareStatement("INSERT INTO Consumed(ConsumedID, FoodID, UserID, MealType, PortionSize, DateEaten, HealthyPoints) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            ps.setInt(1, 1);
-            ps.setInt(2, 1);
-            ps.setInt(3, 1);
-            ps.setString(4, "Breakfast");
-            ps.setInt(5, 124);
-            ps.setString(6, "7/11/19");
-            ps.setInt(7, 1);
+            ps.setInt(1, ConsumedID);
+            ps.setInt(2, FoodID);
+            ps.setInt(3, UserID);
+            ps.setString(4, MealType);
+            ps.setInt(5, PortionSize);
+            ps.setString(6, DateEaten);
+            ps.setInt(7, HealthyPoints);
             ps.executeUpdate();
             System.out.println();
         } catch (Exception exception) {
@@ -80,8 +80,8 @@ public class Consumed {
             PreparedStatement ps = Main.db.prepareStatement("DELETE FROM Consumed WHERE ConsumedID = ?");
 
             ps.setInt(1, ConsumedID);
-
             ps.execute();
+            System.out.print("ConsumedID: " + ConsumedID+ " deleted \n");
 
         } catch (Exception exception) {
             System.out.println("Database error: " + exception.getMessage());

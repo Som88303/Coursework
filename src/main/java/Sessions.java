@@ -4,14 +4,14 @@ import java.sql.ResultSet;
 public class Sessions {
 
 
-    public static void InsertSession() {
+    public static void InsertSession(int SessionID, int ExerciseID, int UserID, String DateExercised, int Duration) {
         try {
             PreparedStatement ps = Main.db.prepareStatement("INSERT INTO Sessions(SessionID, ExerciseID, UserID, DateExercised, Duration) VALUES (?, ?, ?, ?, ?)");
-            ps.setInt(1, 1);
-            ps.setInt(2, 1);
-            ps.setInt(3, 1);
-            ps.setString(4, "Jumping Jacks");
-            ps.setInt(5, 123);
+            ps.setInt(1, SessionID);
+            ps.setInt(2, ExerciseID);
+            ps.setInt(3, UserID);
+            ps.setString(4, DateExercised);
+            ps.setInt(5, Duration);
             ps.executeUpdate();
             System.out.println();
         } catch (Exception exception) {
@@ -74,8 +74,8 @@ public class Sessions {
             PreparedStatement ps = Main.db.prepareStatement("DELETE FROM Sessions WHERE SessionID = ?");
 
             ps.setInt(1, SessionID);
-
             ps.execute();
+            System.out.print("SessionID: " + SessionID+ " deleted \n");
 
         } catch (Exception exception) {
             System.out.println("Database error: " + exception.getMessage());

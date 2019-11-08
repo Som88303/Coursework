@@ -13,20 +13,7 @@ public class Main {
     public static void main(String[] args) {
         openDatabase("Coursework Database.db");
         // code to get data from, write to the database etc goes here
-
-        Consumed.InsertConsumed();
-
-        Consumed.DeleteConsumed(1);
-
-        Foods.DeleteFood(1);
-
         Users.DeleteUser(1);
-
-        Sessions.DeleteSession(1);
-
-        Exercises.DeleteExercise(1);
-
-
         closeDatabase();
     }
 
