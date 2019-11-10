@@ -13,8 +13,11 @@ public class Main {
     public static void main(String[] args) {
         openDatabase("Coursework Database.db");
         // code to get data from, write to the database etc goes here
-        Users.DeleteUser(1);
+        Foods.UpdateFood(1,"Beef", 14, 6,10,156,2,150);
+
+
         closeDatabase();
+        // closes database
     }
 
     public static void openDatabase(String dbFile) {
