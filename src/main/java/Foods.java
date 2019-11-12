@@ -66,15 +66,15 @@ public class Foods {
         try {
 
             PreparedStatement ps = Main.db.prepareStatement(
-                    "UPDATE Foods SET FoodName = ?, Proteins = ? , Carbohydrates = ? , Fats = ? , CalPerHundredGrams = ? , HealthyPoints = ? , PortionSize = ?  WHERE FoodID = ?");
+                    "UPDATE Foods SET FoodName = (?), Proteins = (?), Carbohydrates = (?), Fats = (?), CalPerHundredGrams = (?) , HealthyPoints = (?), PortionSize = (?)  WHERE FoodID = (?)");
                     // Updates the attributes in the table Foods for the corresponding FoodID given by the user
             ps.setString(1, FoodName);
             ps.setInt(2, Proteins);
             ps.setInt(3, Carbohydrates);
             ps.setInt(4, Fats);                 // Sets the parameters to the corresponding index in the table
             ps.setInt(5, CalPerHundredGrams);
-            ps.setInt(7, HealthyPoints);
-            ps.setInt(8, PortionSize);
+            ps.setInt(6, HealthyPoints);
+            ps.setInt(7, PortionSize);
             ps.setInt(8, FoodID);
             ps.execute();                               // Finally, sets the given parameters in the database itself
 
