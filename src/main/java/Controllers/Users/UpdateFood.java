@@ -20,14 +20,14 @@ public class UpdateFood {
     public String UpdateFood(@FormDataParam("UserID") Integer UserID, @FormDataParam("FirstName") String FirstName, @FormDataParam("LastName") String LastName,
                                   @FormDataParam("DateOfBirth") String DateOfBirth, @FormDataParam("Gender") String Gender, @FormDataParam("Age") Integer Age,
                                   @FormDataParam("Username") String Username, @FormDataParam("Password") String Password) {
-        // Takes in parameters given by the user for the corresponding attributes of the table Foods
+        // Takes in parameters given by the user for the corresponding attributes of the table Controllers.Foods
         try {
             if (UserID == null || FirstName == null || LastName == null ||DateOfBirth == null || Gender == null || Age == null || Username == null || Password == null  ) {
                 throw new Exception("One or more form data parameters are missing in the HTTP request.");
             }
             PreparedStatement ps = Main.db.prepareStatement(
                     "UPDATE Foods SET FoodName = (?), Proteins = (?), Carbohydrates = (?), Fats = (?), CalPerHundredGrams = (?) , HealthyPoints = (?), PortionSize = (?)  WHERE FoodID = (?)");
-            // Updates the attributes in the table Foods for the corresponding FoodID given by the user
+            // Updates the attributes in the table Controllers.Foods for the corresponding FoodID given by the user
             ps.setString(1, FirstName);
             ps.setString(2, LastName);
             ps.setString(3, DateOfBirth);

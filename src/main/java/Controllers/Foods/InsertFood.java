@@ -13,7 +13,7 @@ import javax.ws.rs.core.MediaType;
 import java.sql.PreparedStatement;
 
 
-@Path("Foods")
+@Path("Controllers/Foods")
 public class InsertFood {
     @POST
     @Path("add")
@@ -22,12 +22,12 @@ public class InsertFood {
     public String InsertFood(@FormDataParam("FoodID") Integer FoodID, @FormDataParam("FoodName") String FoodName, @FormDataParam("Proteins") Integer Proteins,
                              @FormDataParam("Carbohydrates") Integer Carbohydrates, @FormDataParam("Fats") Integer Fats, @FormDataParam("CalPerHundredGrams") Integer CalPerHundredGrams,
                              @FormDataParam("HealthyPoints") Integer HealthyPoints, @FormDataParam("PortionSize") Integer PortionSize) {
-        // Takes in parameters given by the user for the corresponding attributes of the table Foods
+        // Takes in parameters given by the user for the corresponding attributes of the table Controllers.Foods
         try {
             if (FoodID == null || FoodName == null || Proteins == null ||Carbohydrates == null || Fats == null || CalPerHundredGrams == null || HealthyPoints == null || PortionSize == null  ) {
                 throw new Exception("One or more form data parameters are missing in the HTTP request.");
             }
-            System.out.println("Foods/add =" + FoodID);
+            System.out.println("Controllers/Foods/add =" + FoodID);
             PreparedStatement ps = Main.db.prepareStatement("INSERT INTO Foods(FoodID, Foodname, Proteins, Carbohydrates, Fats, CalPerHundredGrams, HealthyPoints, PortionSize) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
             // Asks for corresponding attributes
             ps.setInt(1, FoodID);

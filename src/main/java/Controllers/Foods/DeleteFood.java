@@ -10,7 +10,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.sql.PreparedStatement;
 
-@Path("Foods")
+@Path("Controllers/Foods")
 public class DeleteFood {
     @POST
     @Path("delete")
@@ -22,7 +22,7 @@ public class DeleteFood {
             if (FoodID == null) {
                 throw new Exception("One or more form data parameters are missing in the HTTP request.");
             }
-            System.out.println("Foods/delete" + FoodID);
+            System.out.println("Controllers/Foods/delete" + FoodID);
             PreparedStatement ps = Main.db.prepareStatement("DELETE FROM Foods WHERE FoodID = ?");
             // Deletes all attributes that associate with the given parameter by the user
 

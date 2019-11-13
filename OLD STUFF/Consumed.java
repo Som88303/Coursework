@@ -2,11 +2,11 @@
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class Consumed {
+public class Controllers.Consumed {
 
     public static void InsertConsumed(int ConsumedID, int FoodID, int UserID, String MealType, int PortionSize, String DateEaten,int HealthyPoints) {
         try {
-            PreparedStatement ps = Main.db.prepareStatement("INSERT INTO Consumed(ConsumedID, FoodID, UserID, MealType, PortionSize, DateEaten, HealthyPoints) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement ps = Main.db.prepareStatement("INSERT INTO Controllers.Consumed(ConsumedID, FoodID, UserID, MealType, PortionSize, DateEaten, HealthyPoints) VALUES (?, ?, ?, ?, ?, ?, ?)");
             ps.setInt(1, ConsumedID);
             ps.setInt(2, FoodID);
             ps.setInt(3, UserID);
@@ -25,7 +25,7 @@ public class Consumed {
 
         try {
 
-            PreparedStatement ps = Main.db.prepareStatement("SELECT ConsumedID, FoodID, UserID, MealType, PortionSize, DateEaten, HealthyPoints FROM Consumed");
+            PreparedStatement ps = Main.db.prepareStatement("SELECT ConsumedID, FoodID, UserID, MealType, PortionSize, DateEaten, HealthyPoints FROM Controllers.Consumed");
 
             ResultSet results = ps.executeQuery();
             while (results.next()) {
@@ -58,7 +58,7 @@ public class Consumed {
         try {
 
             PreparedStatement ps = Main.db.prepareStatement(
-                    "UPDATE Consumed SET FoodID = ?, UserID = ?, MealType = ?, PortionSize = ?, DateEaten = ?, HealthyPoints = ? WHERE ConsumedID = ?");
+                    "UPDATE Controllers.Consumed SET FoodID = ?, UserID = ?, MealType = ?, PortionSize = ?, DateEaten = ?, HealthyPoints = ? WHERE ConsumedID = ?");
 
             ps.setInt(1, FoodID);
             ps.setInt(2, UserID);
@@ -78,7 +78,7 @@ public class Consumed {
 
         try {
 
-            PreparedStatement ps = Main.db.prepareStatement("DELETE FROM Consumed WHERE ConsumedID = ?");
+            PreparedStatement ps = Main.db.prepareStatement("DELETE FROM Controllers.Consumed WHERE ConsumedID = ?");
 
             ps.setInt(1, ConsumedID);
             ps.execute();

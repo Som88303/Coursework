@@ -6,12 +6,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 
-public class Foods {
+public class Controllers.Foods {
 
     public static void InsertFood(int FoodID, String Foodname, int Proteins, int Carbohydrates, int Fats, int CalPerHundredGrams, int HealthyPoints, int PortionSize) {
-        // Takes in parameters given by the user for the corresponding attributes of the table Foods
+        // Takes in parameters given by the user for the corresponding attributes of the table Controllers.Foods
         try {
-            PreparedStatement ps = Main.db.prepareStatement("INSERT INTO Foods(FoodID, Foodname, Proteins, Carbohydrates, Fats, CalPerHundredGrams, HealthyPoints, PortionSize) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement ps = Main.db.prepareStatement("INSERT INTO Controllers.Foods(FoodID, Foodname, Proteins, Carbohydrates, Fats, CalPerHundredGrams, HealthyPoints, PortionSize) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
             // Asks for corresponding attributes
             ps.setInt(1, FoodID);
             ps.setString(2, Foodname);
@@ -33,8 +33,8 @@ public class Foods {
 
         try {
 
-            PreparedStatement ps = Main.db.prepareStatement("SELECT FoodID, Foodname, Proteins, Carbohydrates, Fats, CalPerHundredGrams, HealthyPoints, PortionSize FROM Foods");
-            // Selects attributes from the table Foods
+            PreparedStatement ps = Main.db.prepareStatement("SELECT FoodID, Foodname, Proteins, Carbohydrates, Fats, CalPerHundredGrams, HealthyPoints, PortionSize FROM Controllers.Foods");
+            // Selects attributes from the table Controllers.Foods
             ResultSet results = ps.executeQuery();
             // helps retrieve and modify the data inside the database
             while (results.next()) {
@@ -59,12 +59,12 @@ public class Foods {
 
 
     public static void UpdateFood(int FoodID, String FoodName, int Proteins, int Carbohydrates, int Fats, int CalPerHundredGrams, int HealthyPoints, int PortionSize) {
-            // Takes in parameters given by the user for the corresponding attributes of the table Foods
+            // Takes in parameters given by the user for the corresponding attributes of the table Controllers.Foods
         try {
 
             PreparedStatement ps = Main.db.prepareStatement(
-                    "UPDATE Foods SET FoodName = (?), Proteins = (?), Carbohydrates = (?), Fats = (?), CalPerHundredGrams = (?) , HealthyPoints = (?), PortionSize = (?)  WHERE FoodID = (?)");
-                    // Updates the attributes in the table Foods for the corresponding FoodID given by the user
+                    "UPDATE Controllers.Foods SET FoodName = (?), Proteins = (?), Carbohydrates = (?), Fats = (?), CalPerHundredGrams = (?) , HealthyPoints = (?), PortionSize = (?)  WHERE FoodID = (?)");
+                    // Updates the attributes in the table Controllers.Foods for the corresponding FoodID given by the user
             ps.setString(1, FoodName);
             ps.setInt(2, Proteins);
             ps.setInt(3, Carbohydrates);
@@ -85,7 +85,7 @@ public class Foods {
         // Asks for a parameter to the Food the user wants to delete(FoodID)
         try {
 
-            PreparedStatement ps = Main.db.prepareStatement("DELETE FROM Foods WHERE FoodID = ?");
+            PreparedStatement ps = Main.db.prepareStatement("DELETE FROM Controllers.Foods WHERE FoodID = ?");
             // Deletes all attributes that associate with the given parameter by the user
 
             ps.setInt(1, FoodID);       // Gives the statement which FoodID to delete

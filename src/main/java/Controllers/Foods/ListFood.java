@@ -12,18 +12,18 @@ import javax.ws.rs.core.MediaType;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-@Path("Foods")
+@Path("Controllers/Foods")
 public class ListFood {
     @GET
     @Path("list")
     @Produces(MediaType.APPLICATION_JSON)
     public String ListFood() {
-        System.out.println("Foods/list");
+        System.out.println("Controllers/Foods/list");
         JSONArray list = new JSONArray();
         try {
 
             PreparedStatement ps = Main.db.prepareStatement("SELECT FoodID, FoodName, Proteins, Carbohydrates, Fats, CalPerHundredGrams, HealthyPoints, PortionSize FROM Foods");
-            // Selects attributes from the table Foods
+            // Selects attributes from the table Controllers.Foods
             ResultSet results = ps.executeQuery();
             // helps retrieve and modify the data inside the database
             while (results.next()) {
