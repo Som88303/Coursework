@@ -28,7 +28,6 @@ public class GetFood {
             ps.setInt(1, FoodID);
             ResultSet results = ps.executeQuery();
             if (results.next()) {
-                food.put("FoodID", FoodID);
                 food.put("FoodName", results.getString(1));
                 food.put("Proteins", results.getInt(2));
                 food.put("Carbohydrates", results.getInt(3));
