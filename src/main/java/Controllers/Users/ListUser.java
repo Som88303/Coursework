@@ -12,7 +12,7 @@ import java.sql.ResultSet;
 @Path("Users")
 public class ListUser {
     @POST
-    @Path("add")
+    @Path("list")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
     public String ListUser() {
