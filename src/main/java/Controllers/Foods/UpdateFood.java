@@ -11,7 +11,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.sql.PreparedStatement;
-@Path("Controllers/Foods")
+@Path("Foods")
 public class UpdateFood {
     @POST
     @Path("update")
@@ -25,7 +25,7 @@ public class UpdateFood {
             if (FoodID == null || FoodName == null || Proteins == null ||Carbohydrates == null || Fats == null || CalPerHundredGrams == null || HealthyPoints == null || PortionSize == null  ) {
                 throw new Exception("One or more form data parameters are missing in the HTTP request.");
             }
-            System.out.println("Controllers/Foods/update=" + FoodID);
+            System.out.println("Foods/update=" + FoodID);
             PreparedStatement ps = Main.db.prepareStatement(
                     "UPDATE Foods SET FoodName = ?, Proteins = ?, Carbohydrates = ?, Fats = ?, CalPerHundredGrams = ? , HealthyPoints = ?, PortionSize = ?  WHERE FoodID = ?");
             // Updates the attributes in the table Controllers.Foods for the corresponding FoodID given by the user

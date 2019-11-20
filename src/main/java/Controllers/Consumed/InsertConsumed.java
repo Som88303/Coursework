@@ -10,7 +10,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.sql.PreparedStatement;
 
-@Path("Controllers/Consumed")
+@Path("Consumed")
 public class InsertConsumed {
     @POST
     @Path("add")
@@ -21,6 +21,7 @@ public class InsertConsumed {
     public String InsertConsumed(@FormDataParam("ConsumedID") Integer ConsumedID, @FormDataParam("FoodID") Integer FoodID, @FormDataParam("UserID") Integer UserID,
                                  @FormDataParam("MealType") String MealType, @FormDataParam("PortionSize") Integer PortionSize, @FormDataParam("DateEaten") String DateEaten,
                                  @FormDataParam("HealthyPoints") Integer HealthyPoints) {
+        System.out.println("Consumed/add");
         try {
             PreparedStatement ps = Main.db.prepareStatement("INSERT INTO Consumed(ConsumedID, FoodID, UserID, MealType, PortionSize, DateEaten, HealthyPoints) VALUES (?, ?, ?, ?, ?, ?, ?)");
             ps.setInt(1, ConsumedID);

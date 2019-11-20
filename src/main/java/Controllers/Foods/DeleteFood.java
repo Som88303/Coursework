@@ -10,7 +10,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.sql.PreparedStatement;
 
-@Path("Controllers/Foods")
+@Path("Foods")
 public class DeleteFood {
     @POST
     @Path("delete")

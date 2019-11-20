@@ -11,6 +11,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.sql.PreparedStatement;
 
+@Path("Users")
 public class DeleteUser {
     @POST
     @Path("delete")

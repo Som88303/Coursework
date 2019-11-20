@@ -12,13 +12,13 @@ import javax.ws.rs.core.MediaType;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-@Path("Controllers/Foods")
+@Path("Foods")
 public class ListFood {
     @GET
     @Path("list")
     @Produces(MediaType.APPLICATION_JSON)
     public String ListFood() {
-        System.out.println("Controllers/Foods/list");
+        System.out.println("Foods/list");
         JSONArray list = new JSONArray();
         try {
 

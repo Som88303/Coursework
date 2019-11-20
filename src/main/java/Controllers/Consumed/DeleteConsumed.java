@@ -12,13 +12,14 @@ import java.sql.PreparedStatement;
 
 
 
-@Path("Controllers/Consumed")
+@Path("Consumed")
 public class DeleteConsumed {
     @POST
     @Path("delete")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
     public String DeleteConsumed(@FormDataParam("ConsumedID") Integer ConsumedID) {
+        System.out.println("Consumed/delete");
 
         try {
 

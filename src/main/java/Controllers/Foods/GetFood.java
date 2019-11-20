@@ -12,7 +12,7 @@ import javax.ws.rs.core.MediaType;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-@Path("Controllers/Foods")
+@Path("Foods")
 public class GetFood {
     @GET
     @Path("get/{FoodID}")

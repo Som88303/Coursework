@@ -12,7 +12,7 @@ import javax.ws.rs.core.MediaType;
 import java.sql.PreparedStatement;
 
 @Path("Users")
-public class UpdateFood {
+public class UpdateUser {
     @POST
     @Path("update")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
@@ -26,7 +26,7 @@ public class UpdateFood {
                 throw new Exception("One or more form data parameters are missing in the HTTP request.");
             }
             PreparedStatement ps = Main.db.prepareStatement(
-                    "UPDATE Foods SET FoodName = (?), Proteins = (?), Carbohydrates = (?), Fats = (?), CalPerHundredGrams = (?) , HealthyPoints = (?), PortionSize = (?)  WHERE FoodID = (?)");
+                    "UPDATE Users SET FirstName = ?, LastName = ?, DateOfBirth = ?, Gender = ?, Age = ?, Username = ?, Password = ?  WHERE UserID = ?");
             // Updates the attributes in the table Controllers.Foods for the corresponding FoodID given by the user
             ps.setString(1, FirstName);
             ps.setString(2, LastName);
@@ -36,7 +36,6 @@ public class UpdateFood {
             ps.setString(6, Username);
             ps.setString(7, Password);
             ps.setInt(8, UserID);
-            ps.execute();                               // Finally, sets the given parameters in the database itself
             ps.executeUpdate();                               // Finally, sets the given parameters in the database itself
             return "{\"status\": \"OK\"}";
         } catch (Exception exception) {

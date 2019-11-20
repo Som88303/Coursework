@@ -11,7 +11,7 @@ import javax.ws.rs.core.MediaType;
 import java.sql.PreparedStatement;
 
 
-@Path("Controllers/Consumed")
+@Path("Consumed")
 public class UpdateConsumed {
     @POST
     @Path("update")
@@ -20,6 +20,7 @@ public class UpdateConsumed {
     public String UpdateConsumed(@FormDataParam("ConsumedID") Integer ConsumedID, @FormDataParam("FoodID") Integer FoodID, @FormDataParam("UserID") Integer UserID,
                                  @FormDataParam("MealType") String MealType, @FormDataParam("PortionSize") Integer PortionSize, @FormDataParam("DateEaten") String DateEaten,
                                  @FormDataParam("HealthyPoints") Integer HealthyPoints) {
+        System.out.println("Consumed/update");
 
         try {
 

@@ -12,14 +12,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 
-@Path("Controllers/Consumed")
+@Path("Consumed")
 public class ListConsumed {
     @GET
     @Path("list")
     @Produces(MediaType.APPLICATION_JSON)
 
     public String ListConsumed() {
-        System.out.println("Controllers/Foods/list");
+        System.out.println("Consumed/list");
         JSONArray list = new JSONArray();
 
         try {
