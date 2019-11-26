@@ -76,7 +76,7 @@ public class Exercises {
             }
             System.out.println("Exercise/update=" + ExerciseID);
             PreparedStatement ps = Main.db.prepareStatement(
-                    "UPDATE Exercises SET ExerciseID = ?, ExerciseName = ?, CalPerHour = ? WHERE ExerciseID = ?");
+                    "UPDATE Exercises SET ExerciseName = ?, CalPerHour = ? WHERE ExerciseID = ?");
             // Updates the attributes in the table Controllers.Foods for the corresponding FoodID given by the user
             ps.setString(1, ExerciseName);
             ps.setInt(2, CalPerHour);
