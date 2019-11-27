@@ -45,8 +45,6 @@ public class Sessions {
     @Path("add")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
-
-
     public String InsertConsumed( @FormDataParam("ExerciseID") Integer ExerciseID,
                                  @FormDataParam("UserID") Integer UserID, @FormDataParam("DateExercised") String DateExercised, @FormDataParam("Duration") Integer Duration){
         System.out.println("Sessions/add");
@@ -117,6 +115,34 @@ public class Sessions {
             return "{\"error\": \"Unable to delete item, please see server console for more info.\"}";
         }
     }
+
+    @GET
+    @Path("get/{SessionID}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String GetSession(@PathParam("SessionID") Integer SessionID) throws Exception {
+        if (SessionID == null) {
+            throw new Exception("Sessions 'ID' is missing in the HTTP request's URL.");
+        }
+        System.out.println("SessionID/get/" + SessionID);
+        JSONObject Session = new JSONObject();
+        try {
+            PreparedStatement ps = Main.db.prepareStatement("SELECT ExerciseID , UserID , DateExercised , Duration FROM Sessions WHERE SessionID = ?");
+            ps.setInt(1, SessionID);
+            ResultSet results = ps.executeQuery();
+            if (results.next()) {
+                Session.put("FoodID", SessionID);
+                Session.put("ExerciseID", results.getInt(1));
+                Session.put("UserID", results.getInt(2));
+                Session.put("Duration", results.getInt(3));
+                Session.put("DateExercised", results.getString(4));
+            }
+            return Session.toString();
+        } catch (Exception exception) {
+            System.out.println("Database error: " + exception.getMessage());
+            return "{\"error\": \"Unable to get item, please see server console for more info.\"}";
+        }
+    }
+
 }
 
 

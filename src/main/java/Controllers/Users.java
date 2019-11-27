@@ -5,10 +5,7 @@ import org.glassfish.jersey.media.multipart.FormDataParam;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -114,7 +111,6 @@ public class Users {
             }
         }
 
-
         @POST
         @Path("delete")
         @Consumes(MediaType.MULTIPART_FORM_DATA)
@@ -138,14 +134,43 @@ public class Users {
             }
         }
 
-        @POST
-        @Path("login")
-        @Consumes(MediaType.MULTIPART_FORM_DATA)
-        @Produces(MediaType.APPLICATION_JSON)
-        public String loginUser(@FormDataParam("username") String username, @FormDataParam("password") String password) {
 
+    @GET
+    @Path("get/{UserID}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String GetUser(@PathParam("UserID") Integer UserID) throws Exception {
+        if (UserID == null) {
+            throw new Exception("User 'ID' is missing in the HTTP request's URL.");
+        }
+        System.out.println("UserID/get/" + UserID);
+        JSONObject Users = new JSONObject();
+        try {
+            PreparedStatement ps = Main.db.prepareStatement("SELECT FirstName, LastName, DateOfBirth, Gender, Age, Username, Password FROM Users WHERE UserID = ?");
+            ps.setInt(1, UserID);
+            ResultSet results = ps.executeQuery();
+            if (results.next()) {
+                Users.put("FoodID", UserID);
+                Users.put("FirstName", results.getString(1));
+                Users.put("LastName", results.getString(2));
+                Users.put("DateOfBirth", results.getString(3));
+                Users.put("Gender", results.getString(4));
+                Users.put("Age", results.getInt(1));
+                Users.put("Username", results.getString(2));
+                Users.put("Password", results.getString(3));
+            }
+            return Users.toString();
+        } catch (Exception exception) {
+            System.out.println("Database error: " + exception.getMessage());
+            return "{\"error\": \"Unable to get item, please see server console for more info.\"}";
+        }
+    }
+
+    @POST
+    @Path("login")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String loginUser(@FormDataParam("username") String username, @FormDataParam("password") String password) {
             try {
-
                 PreparedStatement ps1 = Main.db.prepareStatement("SELECT Password FROM Users WHERE Username = ?");
                 ps1.setString(1, username);
                 ResultSet loginResults = ps1.executeQuery();

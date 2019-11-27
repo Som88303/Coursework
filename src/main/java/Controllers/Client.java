@@ -28,8 +28,8 @@ public class Client {
     @Produces({"text/javascript"})
     public byte[] getJavaScriptFile(@PathParam("path") String path) {
         return getFile("client/js/" + path);
-
     }
+
     @GET
     @Path("css/{path}")
     @Produces({"text/css"})

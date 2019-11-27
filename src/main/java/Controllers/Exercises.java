@@ -115,6 +115,30 @@ public class Exercises {
             // If something goes wrong with the code this error message comes up
             return "{\"error\": \"Unable to delete item, please see server console for more info.\"}";
         }
+    }
 
+    @GET
+    @Path("get/{ExerciseID}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String GetExercise(@PathParam("ExerciseID") Integer ExerciseID) throws Exception {
+        if (ExerciseID == null) {
+            throw new Exception("Exercise 'ID' is missing in the HTTP request's URL.");
+        }
+        System.out.println("ExerciseID/get/" + ExerciseID);
+        JSONObject Exercise = new JSONObject();
+        try {
+            PreparedStatement ps = Main.db.prepareStatement("SELECT ExerciseName, CalPerHour FROM Exercises WHERE ExerciseID = ?");
+            ps.setInt(1, ExerciseID);
+            ResultSet results = ps.executeQuery();
+            if (results.next()) {
+                Exercise.put("ExerciseID", ExerciseID);
+                Exercise.put("ExerciseName", results.getString(1));
+                Exercise.put("CalPerHour", results.getInt(2));
+            }
+            return Exercise.toString();
+        } catch (Exception exception) {
+            System.out.println("Database error: " + exception.getMessage());
+            return "{\"error\": \"Unable to get item, please see server console for more info.\"}";
+        }
     }
 }
