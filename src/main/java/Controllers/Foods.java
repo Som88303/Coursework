@@ -20,20 +20,21 @@ public class Foods {
         JSONArray list = new JSONArray();
         try {
 
-            PreparedStatement ps = Main.db.prepareStatement("SELECT FoodID, FoodName, Proteins, Carbohydrates, Fats, CalPerHundredGrams, HealthyPoints, PortionSize FROM Foods");
+            PreparedStatement ps = Main.db.prepareStatement("SELECT FoodID, FoodName, Proteins, Carbohydrates, Fats, CalPerHundredGrams, HealthyPoints, PortionSize, Image FROM Foods");
             // Selects attributes from the table Controllers.Foods
             ResultSet results = ps.executeQuery();
             // helps retrieve and modify the data inside the database
             while (results.next()) {
                 JSONObject Food = new JSONObject();
                 Food.put("FoodID", results.getInt(1));
-                Food.put("FoodName", results.getInt(2));
+                Food.put("FoodName", results.getString(2));
                 Food.put("Proteins", results.getInt(3));
                 Food.put("Carbohydrates", results.getInt(4));
                 Food.put("Fats", results.getInt(5));
                 Food.put("CalPerHundredGrams", results.getInt(6));
                 Food.put("HealthyPoints", results.getInt(7));
                 Food.put("PortionSize", results.getInt(8));
+                Food.put("Image", results.getString(9));
                 list.add(Food);
             }
             return list.toString();
