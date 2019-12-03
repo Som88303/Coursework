@@ -20,7 +20,7 @@ public class Foods {
         JSONArray list = new JSONArray();
         try {
 
-            PreparedStatement ps = Main.db.prepareStatement("SELECT FoodID, FoodName, Proteins, Carbohydrates, Fats, CalPerHundredGrams, HealthyPoints, PortionSize, Image FROM Foods");
+            PreparedStatement ps = Main.db.prepareStatement("SELECT FoodID, FoodName, Proteins, Carbohydrates, Fats, CalPerHundredGrams, HealthyPoints, Image FROM Foods");
             // Selects attributes from the table Controllers.Foods
             ResultSet results = ps.executeQuery();
             // helps retrieve and modify the data inside the database
@@ -33,8 +33,7 @@ public class Foods {
                 Food.put("Fats", results.getInt(5));
                 Food.put("CalPerHundredGrams", results.getInt(6));
                 Food.put("HealthyPoints", results.getInt(7));
-                Food.put("PortionSize", results.getInt(8));
-                Food.put("Image", results.getString(9));
+                Food.put("Image", results.getString(8));
                 list.add(Food);
             }
             return list.toString();
@@ -52,14 +51,14 @@ public class Foods {
     @Produces(MediaType.APPLICATION_JSON)
     public String InsertFood(@FormDataParam("FoodName") String FoodName, @FormDataParam("Proteins") Integer Proteins,
                              @FormDataParam("Carbohydrates") Integer Carbohydrates, @FormDataParam("Fats") Integer Fats, @FormDataParam("CalPerHundredGrams") Integer CalPerHundredGrams,
-                             @FormDataParam("HealthyPoints") Integer HealthyPoints, @FormDataParam("PortionSize") Integer PortionSize) {
+                             @FormDataParam("HealthyPoints") Integer HealthyPoints) {
         // Takes in parameters given by the user for the corresponding attributes of the table Controllers.Foods
         try {
-            if (FoodName == null || Proteins == null ||Carbohydrates == null || Fats == null || CalPerHundredGrams == null || HealthyPoints == null || PortionSize == null  ) {
+            if (FoodName == null || Proteins == null ||Carbohydrates == null || Fats == null || CalPerHundredGrams == null || HealthyPoints == null) {
                 throw new Exception("One or more form data parameters are missing in the HTTP request.");
             }
             System.out.println("Controllers/Foods/add =");
-            PreparedStatement ps = Main.db.prepareStatement("INSERT INTO Foods(Foodname, Proteins, Carbohydrates, Fats, CalPerHundredGrams, HealthyPoints, PortionSize) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement ps = Main.db.prepareStatement("INSERT INTO Foods(Foodname, Proteins, Carbohydrates, Fats, CalPerHundredGrams, HealthyPoints) VALUES (?, ?, ?, ?, ?, ?)");
             // Asks for corresponding attributes
             ps.setString(1, FoodName);
             ps.setInt(2, Proteins);
@@ -67,7 +66,6 @@ public class Foods {
             ps.setInt(4, Fats);
             ps.setInt(5, CalPerHundredGrams);
             ps.setInt(6, HealthyPoints);
-            ps.setInt(7, PortionSize);
             ps.executeUpdate();                                       // Finally, adds the Food given by the the user
             return "{\"status\": \"OK\"}";
         } catch (Exception exception) {
@@ -84,15 +82,15 @@ public class Foods {
     @Produces(MediaType.APPLICATION_JSON)
     public String UpdateFood(@FormDataParam("FoodID") Integer FoodID, @FormDataParam("FoodName") String FoodName, @FormDataParam("Proteins") Integer Proteins,
                              @FormDataParam("Carbohydrates") Integer Carbohydrates, @FormDataParam("Fats") Integer Fats, @FormDataParam("CalPerHundredGrams") Integer CalPerHundredGrams,
-                             @FormDataParam("HealthyPoints") Integer HealthyPoints, @FormDataParam("PortionSize") Integer PortionSize) {
+                             @FormDataParam("HealthyPoints") Integer HealthyPoints) {
         // Takes in parameters given by the user for the corresponding attributes of the table Controllers.Foods
         try {
-            if (FoodID == null || FoodName == null || Proteins == null ||Carbohydrates == null || Fats == null || CalPerHundredGrams == null || HealthyPoints == null || PortionSize == null  ) {
+            if (FoodID == null || FoodName == null || Proteins == null ||Carbohydrates == null || Fats == null || CalPerHundredGrams == null || HealthyPoints == null) {
                 throw new Exception("One or more form data parameters are missing in the HTTP request.");
             }
             System.out.println("Foods/update=" + FoodID);
             PreparedStatement ps = Main.db.prepareStatement(
-                    "UPDATE Foods SET FoodName = ?, Proteins = ?, Carbohydrates = ?, Fats = ?, CalPerHundredGrams = ? , HealthyPoints = ?, PortionSize = ?  WHERE FoodID = ?");
+                    "UPDATE Foods SET FoodName = ?, Proteins = ?, Carbohydrates = ?, Fats = ?, CalPerHundredGrams = ? , HealthyPoints = ? WHERE FoodID = ?");
             // Updates the attributes in the table Controllers.Foods for the corresponding FoodID given by the user
             ps.setString(1, FoodName);
             ps.setInt(2, Proteins);
@@ -100,8 +98,7 @@ public class Foods {
             ps.setInt(4, Fats);                 // Sets the parameters to the corresponding index in the table
             ps.setInt(5, CalPerHundredGrams);
             ps.setInt(6, HealthyPoints);
-            ps.setInt(7, PortionSize);
-            ps.setInt(8, FoodID);
+            ps.setInt(7, FoodID);
             ps.executeUpdate();                               // Finally, sets the given parameters in the database itself
             return "{\"status\": \"OK\"}";
         } catch (Exception exception) {
@@ -149,7 +146,7 @@ public class Foods {
             System.out.println("FoodID/get/" + FoodID);
             JSONObject food = new JSONObject();
             try {
-                PreparedStatement ps = Main.db.prepareStatement("SELECT FoodName, Proteins, Carbohydrates, Fats, CalPerHundredGrams, HealthyPoints, PortionSize FROM Foods WHERE FoodID = ?");
+                PreparedStatement ps = Main.db.prepareStatement("SELECT FoodName, Proteins, Carbohydrates, Fats, CalPerHundredGrams, HealthyPoints FROM Foods WHERE FoodID = ?");
                 ps.setInt(1, FoodID);
                 ResultSet results = ps.executeQuery();
                 if (results.next()) {
@@ -160,7 +157,6 @@ public class Foods {
                     food.put("Fats", results.getInt(4));
                     food.put("CalPerHundredGrams", results.getInt(5));
                     food.put("HealthyPoints", results.getInt(6));
-                    food.put("PortionSize", results.getInt(7));
                 }
                 return food.toString();
             } catch (Exception exception) {
