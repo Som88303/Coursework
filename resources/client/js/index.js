@@ -41,19 +41,201 @@ function pageLoad() {
 
         let editButtons = document.getElementsByClassName("editButton");
         for (let button of editButtons) {
-            button.addEventListener("click", editFruit);
+            button.addEventListener("click", editFood);
         }
 
         let deleteButtons = document.getElementsByClassName("deleteButton");
         for (let button of deleteButtons) {
-            button.addEventListener("click", deleteFruit);
+            button.addEventListener("click", deleteFood);
         }
 
+        checkLogin();
     });
 
-    document.getElementById("saveButton").addEventListener("click", saveEditFruit);
-    document.getElementById("cancelButton").addEventListener("click", cancelEditFruit);
+    document.getElementById("saveButton").addEventListener("click", saveEditFood);
+    document.getElementById("cancelButton").addEventListener("click", cancelEditFood);
+
 }
+
+function editFood(event) {
+
+    const FoodID = event.target.getAttribute("data-id");
+
+    if (FoodID === null) {
+
+        document.getElementById("editHeading").innerHTML = 'Add new fruit:';
+
+        document.getElementById("FoodID").value = '';
+        document.getElementById("FoodName").value = '';
+        document.getElementById("Proteins").value = '';
+        document.getElementById("Carbohydrates").value = '';
+        document.getElementById("Fats").value = '';
+        document.getElementById("CalPerHundredGrams").value = '';
+        document.getElementById("HealthyPoints").value = '';
+        document.getElementById("Image").value = '';
+
+        document.getElementById("listDiv").style.display = 'none';
+        document.getElementById("editDiv").style.display = 'block';
+
+    } else {
+
+        fetch('/Foods/get/' + FoodID, {method: 'get'}
+        ).then(response => response.json()
+        ).then(Food => {
+
+            if (Food.hasOwnProperty('error')) {
+                alert(Food.error);
+            } else {
+
+                document.getElementById("editHeading").innerHTML = 'Editing ' + Food.FoodName + ':';
+
+                document.getElementById("FoodID").value = FoodID;
+                document.getElementById("FoodName").value = Food.FoodName;
+                document.getElementById("Proteins").value = Food.Proteins;
+                document.getElementById("Carbohydrates").value = Food.Carbohydrates;
+                document.getElementById("Fats").value = Food.Fats;
+                document.getElementById("CalPerHundredGrams").value = Food.CalPerHundredGrams;
+                document.getElementById("HealthyPoints").value = Food.HealthyPoints;
+                document.getElementById("Image").value = Food.Image;
+
+                document.getElementById("listDiv").style.display = 'none';
+                document.getElementById("editDiv").style.display = 'block';
+            }
+        });
+    }
+}
+
+function saveEditFood(event) {
+
+    event.preventDefault();
+
+    if (document.getElementById("FoodName").value.trim() === '') {
+        alert("Please provide a Food Name.");
+        return;
+    }
+
+    if (document.getElementById("Proteins").value.trim() === '') {
+        alert("Please provide the amount of proteins(g).");
+        return;
+    }
+
+    if (document.getElementById("Carbohydrates").value.trim() === '') {
+        alert("Please provide the amount of Carbohydrates(g).");
+        return;
+    }
+
+    if (document.getElementById("Fats").value.trim() === '') {
+        alert("Please provide the amount of Fats(g).");
+        return;
+    }
+    if (document.getElementById("CalPerHundredGrams").value.trim() === '') {
+        alert("Please provide the amount of calories per hundred grams.");
+        return;
+    }
+    if (document.getElementById("HealthyPoints").value.trim() === '') {
+        alert("How healthy is this product? 1-5 (1 is healthiest).");
+        return;
+    }
+
+    const FoodID = document.getElementById("FoodID").value;
+    const form = document.getElementById("FoodFrom");
+    const formData = new FormData(form);
+
+    let apiPath = '';
+    if (FoodID === '') {
+        apiPath = '/Foods/add';
+    } else {
+        apiPath = '/Foods/update';
+    }
+
+    fetch(apiPath, {method: 'post', body: formData}
+    ).then(response => response.json()
+    ).then(responseData => {
+
+        if (responseData.hasOwnProperty('error')) {
+            alert(responseData.error);
+        } else {
+            document.getElementById("listDiv").style.display = 'block';
+            document.getElementById("editDiv").style.display = 'none';
+            pageLoad();
+        }
+    });
+
+}
+
+function cancelEditFood(event) {
+
+    event.preventDefault();
+
+    document.getElementById("listDiv").style.display = 'block';
+    document.getElementById("editDiv").style.display = 'none';
+
+}
+
+function deleteFood(event) {
+
+    const ok = confirm("Are you sure?");
+
+    if (ok === true) {
+
+        let FoodID = event.target.getAttribute("data-id");
+        let formData = new FormData();
+        formData.append("FoodID", FoodID);
+
+        fetch('/Foods/delete', {method: 'post', body: formData}
+        ).then(response => response.json()
+        ).then(responseData => {
+
+                if (responseData.hasOwnProperty('error')) {
+                    alert(responseData.error);
+                } else {
+                    pageLoad();
+                }
+            }
+        );
+    }
+}
+function checkLogin() {
+
+    let username = Cookies.get("username");
+
+    let logInHTML = '';
+
+    if (username === undefined) {
+
+        let editButtons = document.getElementsByClassName("editButton");
+        for (let button of editButtons) {
+            button.style.visibility = "hidden";
+        }
+
+        let deleteButtons = document.getElementsByClassName("deleteButton");
+        for (let button of deleteButtons) {
+            button.style.visibility = "hidden";
+        }
+
+        logInHTML = "Not logged in. <a href='/client/login.html'>Log in</a>";
+    } else {
+
+        let editButtons = document.getElementsByClassName("editButton");
+        for (let button of editButtons) {
+            button.style.visibility = "visible";
+        }
+
+        let deleteButtons = document.getElementsByClassName("deleteButton");
+        for (let button of deleteButtons) {
+            button.style.visibility = "visible";
+        }
+
+        logInHTML = "Logged in as " + username + ". <a href='/client/login.html?logout'>Log out</a>";
+
+    }
+
+    document.getElementById("loggedInDetails").innerHTML = logInHTML;
+
+}
+
+
+
 
 
 
