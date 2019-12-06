@@ -108,60 +108,61 @@ public class Foods {
         }
     }
 
-        @POST
-        @Path("delete")
-        @Consumes(MediaType.MULTIPART_FORM_DATA)
-        @Produces(MediaType.APPLICATION_JSON)
-        public String DeleteFood(@FormDataParam("FoodID") Integer FoodID) {
-            // Asks for a parameter to the Food the user wants to delete(FoodID)
-            try {
-                if (FoodID == null) {
-                    throw new Exception("One or more form data parameters are missing in the HTTP request.");
-                }
-                System.out.println("Controllers/Foods/delete" + FoodID);
-                PreparedStatement ps = Main.db.prepareStatement("DELETE FROM Foods WHERE FoodID = ?");
-                // Deletes all attributes that associate with the given parameter by the user
-
-                ps.setInt(1, FoodID);       // Gives the statement which FoodID to delete
-                ps.execute();                           // Finally, deletes the Food entered by the user
-                System.out.print("FoodID: " + FoodID+ " deleted \n");
-                return "{\"status\": \"OK\"}";
-
-
-            } catch (Exception exception) {
-                System.out.println("Database error: " + exception.getMessage());
-                // If something goes wrong with the code this error message comes up
-                return "{\"error\": \"Unable to delete item, please see server console for more info.\"}";
+    @POST
+    @Path("delete")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String DeleteFood(@FormDataParam("FoodID") Integer FoodID) {
+        // Asks for a parameter to the Food the user wants to delete(FoodID)
+        try {
+            if (FoodID == null) {
+                throw new Exception("One or more form data parameters are missing in the HTTP request.");
             }
+            System.out.println("Controllers/Foods/delete" + FoodID);
+            PreparedStatement ps = Main.db.prepareStatement("DELETE FROM Foods WHERE FoodID = ?");
+            // Deletes all attributes that associate with the given parameter by the user
 
+            ps.setInt(1, FoodID);       // Gives the statement which FoodID to delete
+            ps.execute();                           // Finally, deletes the Food entered by the user
+            System.out.print("FoodID: " + FoodID+ " deleted \n");
+            return "{\"status\": \"OK\"}";
+
+
+        } catch (Exception exception) {
+            System.out.println("Database error: " + exception.getMessage());
+            // If something goes wrong with the code this error message comes up
+            return "{\"error\": \"Unable to delete item, please see server console for more info.\"}";
         }
 
-        @GET
-        @Path("get/{FoodID}")
-        @Produces(MediaType.APPLICATION_JSON)
-        public String GetFood(@PathParam("FoodID") Integer FoodID) throws Exception {
-            if (FoodID == null) {
-               throw new Exception("Foods's 'ID' is missing in the HTTP request's URL.");
+    }
+
+    @GET
+    @Path("get/{FoodID}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String GetFood(@PathParam("FoodID") Integer FoodID) throws Exception {
+        if (FoodID == null) {
+           throw new Exception("Foods's 'ID' is missing in the HTTP request's URL.");
+        }
+        System.out.println("FoodID/get/" + FoodID);
+        JSONObject food = new JSONObject();
+        try {
+            PreparedStatement ps = Main.db.prepareStatement("SELECT FoodName, Proteins, Carbohydrates, Fats, CalPerHundredGrams, HealthyPoints, Image FROM Foods WHERE FoodID = ?");
+            ps.setInt(1, FoodID);
+            ResultSet results = ps.executeQuery();
+            if (results.next()) {
+                food.put("FoodID", FoodID);
+                food.put("FoodName", results.getString(1));
+                food.put("Proteins", results.getInt(2));
+                food.put("Carbohydrates", results.getInt(3));
+                food.put("Fats", results.getInt(4));
+                food.put("CalPerHundredGrams", results.getInt(5));
+                food.put("HealthyPoints", results.getInt(6));
+                food.put("Image",results.getString(7));
             }
-            System.out.println("FoodID/get/" + FoodID);
-            JSONObject food = new JSONObject();
-            try {
-                PreparedStatement ps = Main.db.prepareStatement("SELECT FoodName, Proteins, Carbohydrates, Fats, CalPerHundredGrams, HealthyPoints FROM Foods WHERE FoodID = ?");
-                ps.setInt(1, FoodID);
-                ResultSet results = ps.executeQuery();
-                if (results.next()) {
-                    food.put("FoodID", FoodID);
-                    food.put("FoodName", results.getString(1));
-                    food.put("Proteins", results.getInt(2));
-                    food.put("Carbohydrates", results.getInt(3));
-                    food.put("Fats", results.getInt(4));
-                    food.put("CalPerHundredGrams", results.getInt(5));
-                    food.put("HealthyPoints", results.getInt(6));
-                }
-                return food.toString();
-            } catch (Exception exception) {
-                System.out.println("Database error: " + exception.getMessage());
-                return "{\"error\": \"Unable to get item, please see server console for more info.\"}";
-            }
+            return food.toString();
+        } catch (Exception exception) {
+            System.out.println("Database error: " + exception.getMessage());
+            return "{\"error\": \"Unable to get item, please see server console for more info.\"}";
         }
     }
+}

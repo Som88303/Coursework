@@ -54,7 +54,7 @@ function pageLoad() {
 
     document.getElementById("saveButton").addEventListener("click", saveEditFood);
     document.getElementById("cancelButton").addEventListener("click", cancelEditFood);
-
+    document.getElementById("imageUploadForm").addEventListener("submit", uploadImage);
 }
 
 function editFood(event) {
@@ -138,7 +138,7 @@ function saveEditFood(event) {
     }
 
     const FoodID = document.getElementById("FoodID").value;
-    const form = document.getElementById("FoodFrom");
+    const form = document.getElementById("FoodForm");
     const formData = new FormData(form);
 
     let apiPath = '';
@@ -213,6 +213,9 @@ function checkLogin() {
             button.style.visibility = "hidden";
         }
 
+        document.getElementById("saveButton").style.visibility = 'hidden';
+        document.getElementById("cancelButton").style.visibility = 'hidden';
+
         logInHTML = "Not logged in. <a href='/client/login.html'>Log in</a>";
     } else {
 
@@ -226,11 +229,50 @@ function checkLogin() {
             button.style.visibility = "visible";
         }
 
+        document.getElementById("saveButton").style.visibility = 'visible';
+        document.getElementById("cancelButton").style.visibility = 'visible';
+
         logInHTML = "Logged in as " + username + ". <a href='/client/login.html?logout'>Log out</a>";
 
     }
 
     document.getElementById("loggedInDetails").innerHTML = logInHTML;
+
+}
+
+function uploadImage(event) {
+
+    event.preventDefault();
+
+    const imageUploadForm = document.getElementById('imageUploadForm');
+
+    if (document.getElementById('file').value !== '') {
+
+        imageUploadForm.style.display = 'none';
+        document.getElementById('uploading').style.display = 'block';
+
+        let fileData = new FormData(imageUploadForm);
+
+        fetch('/Image/upload', {method: 'post', body: fileData},
+        ).then(response => response.json()
+        ).then(data => {
+
+                if (data.hasOwnProperty('error')) {
+                    alert(data.error);
+                } else {
+                    document.getElementById('file').value = '';
+                }
+                imageUploadForm.style.display = 'block';
+
+                document.getElementById('uploading').style.display = 'none';
+            }
+        );
+
+    } else {
+
+        alert('No file specified');
+
+    }
 
 }
 

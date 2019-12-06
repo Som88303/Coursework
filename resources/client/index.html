@@ -17,7 +17,7 @@
 <div id="content">
 
     <div id="pageHeader">
-        <div class="floatRight"><button id="newButton" class="editButton">Add New Fruit</button></div>
+        <div class="floatRight"><button id="newButton" class="editButton">Add New Food</button></div>
         <div id="loggedInDetails"></div>
         <h1>Foods</h1>
     </div>
@@ -30,37 +30,48 @@
             <input type="hidden" name="FoodID" id="FoodID">
             <div>
                 <label for="FoodName" class="label">Food Name:</label>
-                <input type="text" name="name" id="FoodName">
+                <input type="text" name="FoodName" id="FoodName">
             </div>
             <div>
                 <label for="Proteins" class="label">Proteins:</label>
-                <input type="text" name="image" id="Proteins">
+                <input type="text" name="Proteins" id="Proteins">
             </div>
             <div>
                 <label for="Carbohydrates" class="label">Carbohydrates:</label>
-                <input type="text" name="colour" id="Carbohydrates">
+                <input type="text" name="Carbohydrates" id="Carbohydrates">
             </div>
             <div>
                 <label for="Fats" class="label">Fats:</label>
-                <input type="text" name="name" id="Fats">
+                <input type="text" name="Fats" id="Fats">
             </div>
             <div>
                 <label for="CalPerHundredGrams" class="label">Calories per hundred grams:</label>
-                <input type="text" name="image" id="CalPerHundredGrams">
+                <input type="text" name="CalPerHundredGrams" id="CalPerHundredGrams">
             </div>
             <div>
                 <label for="HealthyPoints" class="label">Healthy Points:</label>
-                <input type="text" name="colour" id="HealthyPoints">
+                <input type="text" name="HealthyPoints" id="HealthyPoints">
             </div>
             <div>
                 <label for="Image" class="label">Image:</label>
-                <input type="text" name="size" id="Image">
+                <input type="text" name="Image" id="Image">
             </div>
             <div>
                 <input type="submit" value="Save" id="saveButton">
                 <input type="submit" value="Cancel" id="cancelButton">
             </div>
+
         </form>
+
+        <form enctype="multipart/form-data" id="imageUploadForm">
+
+            <input type="file" name="file" id="file" />
+
+            <input type="submit"></button>
+
+            <h4 id="uploading" style="display:none">Uploading...</h4>
+        </form>
+
     </div>
 
     </div>
