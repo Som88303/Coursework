@@ -195,6 +195,7 @@ function deleteFood(event) {
         );
     }
 }
+
 function checkLogin() {
 
     let username = Cookies.get("username");
