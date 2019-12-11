@@ -7,6 +7,11 @@ function pageLoad() {
         document.getElementById("loginButton").addEventListener("click", login);
     }
 
+    document.getElementById("cancelLoginButton").addEventListener("click", event => {
+        event.preventDefault();
+        window.location.href = '/client/index.html'
+    });
+
 }
 function login(event) {
 
@@ -25,7 +30,7 @@ function login(event) {
             Cookies.set("username", responseData.username);
             Cookies.set("token", responseData.token);
 
-            window.location.href = '/client/index.html';
+            window.location.href = '/client/foods.html';
         }
     });
 }
@@ -43,7 +48,7 @@ function logout() {
             Cookies.remove("username");
             Cookies.remove("token");
 
-            window.location.href = '/client/index.html';
+            window.location.href = '/client/foods.html';
 
         }
     });
