@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<head>
+    <title>Register</title>
+    <link rel="stylesheet" type="text/css" href="/client/css/styles.css">
+    <script src="/client/js/js.cookie.js"></script>
+    <script src="/client/js/Sign-up.js"></script>
+</head>
+
+<body onload="pageLoad()">
+    <div id="content">
+        <h1 >Sign-up</h1>
+        <form id="RegisterForm">
+            <input type="hidden" name="UserID" id="UserID">
+            <div>
+                <label for="FirstName" class="label">First Name:</label>
+                <input type="text" name="FirstName" id="FirstName">
+            </div>
+            <div>
+                <label for="LastName" class="label">Last Name:</label>
+                <input type="text" name="LastName" id="LastName">
+            </div>
+            <div>
+                <label for="Date of Birth" class="label">Date of Birth:</label>
+                <input type="text" name="Date of Birth" id="Date of Birth">
+            </div>
+            <div>
+                <label for="Gender" class="label">Gender:</label>
+                <input type="text" name="Gender" id="Gender">
+            </div>
+            <div>
+                <label for="Age" class="label">Age:</label>
+                <input type="text" name="Age" id="Age">
+            </div>
+            <div>
+                <label for="Username" class="label">Username:</label>
+                <input type="text" name="Username" id="Username">
+            </div>
+            <div>
+                <label for="Password" class="label">Password:</label>
+                <input type="text" name="Password" id="Password">
+            </div>
+            <div class="loginDiv">
+                <input type="submit" value="Sign-up" id="Sign-upButton">
+                <button type="cancel" id="cancelSign-upButton">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+
+</body>
+</html>

@@ -4,6 +4,8 @@ function pageLoad() {
     if (username !== undefined) {
         document.getElementById("logoutLink").style.display = "block";
         document.getElementById("loginLink").style.display = "none";
+        document.getElementById("AccountLinkOut").style.display = "block";
+        document.getElementById("AccountLinkIn").style.display = "none";
     }
 
     let FoodsHTML = '<table>' +
@@ -69,7 +71,7 @@ function editFood(event) {
 
     if (FoodID === null) {
 
-        document.getElementById("editHeading").innerHTML = 'Add new fruit:';
+        document.getElementById("editHeading").innerHTML = 'Add new Food:';
 
         document.getElementById("FoodID").value = '';
         document.getElementById("FoodName").value = '';
@@ -78,7 +80,7 @@ function editFood(event) {
         document.getElementById("Fats").value = '';
         document.getElementById("CalPerHundredGrams").value = '';
         document.getElementById("HealthyPoints").value = '';
-        document.getElementById("Image").value = '';
+        document.getElementById("Image").value = '' ;
 
         document.getElementById("listDiv").style.display = 'none';
         document.getElementById("editDiv").style.display = 'block';

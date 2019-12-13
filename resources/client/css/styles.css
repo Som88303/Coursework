@@ -54,12 +54,12 @@ th.last {
     font-size: 14pt;
 }
 
-#loginButton {
+#loginButton, #Sign-upButton {
     width: 100px;
     background-color: green;
 }
 
-#cancelLoginButton {
+#cancelLoginButton, #cancelSign-upButton {
     width: 100px;
     background-color: red;
 }

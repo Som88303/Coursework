@@ -13,6 +13,7 @@ function pageLoad() {
     });
 
 }
+
 function login(event) {
 
     event.preventDefault();
@@ -34,6 +35,7 @@ function login(event) {
         }
     });
 }
+
 function logout() {
 
     fetch("/Users/logout", {method: 'post'}
