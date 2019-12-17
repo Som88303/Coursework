@@ -58,14 +58,11 @@ public class Users {
     public String InsertUser(@FormDataParam("FirstName") String FirstName, @FormDataParam("LastName") String LastName,
                              @FormDataParam("DateOfBirth") String DateOfBirth, @FormDataParam("Gender") String Gender, @FormDataParam("Age") Integer Age,
                              @FormDataParam("Username") String Username, @FormDataParam("Password") String Password, @CookieParam("token")String token) {
-        if (!validToken(token)) {
-            return "{\"error\": \"You don't appear to be logged in.\"}";
-        }
         try {
             if (FirstName == null || LastName == null || DateOfBirth == null || Gender == null || Age == null || Username == null || Password == null) {
                 throw new Exception("One or more form data parameters are missing in the HTTP request.");
             }
-            PreparedStatement ps = Main.db.prepareStatement("INSERT INTO Users(FirstName, LastName, DateOfBirth, Gender, Age, Username, Password) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement ps = Main.db.prepareStatement("INSERT INTO Users(FirstName, LastName, DateOfBirth, Gender, Age, Username, Password, token) VALUES (?, ?, ?, ?, ?, ?, ?)");
             ps.setString(1, FirstName);
             ps.setString(2, LastName);
             ps.setString(3, DateOfBirth);
@@ -77,7 +74,7 @@ public class Users {
             return "{\"status\": \"OK\"}";
         } catch (Exception exception) {
             System.out.println("Error: " + exception.getMessage());
-            return "{\"error\": \"Unable to create new item, please see server console for more info.\"}";
+            return "{\"error\": \"Unable to create new user, please see server console for more info.\"}";
         }
     }
 
