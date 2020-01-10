@@ -5,34 +5,7 @@ function pageLoad(){
     });
     document.getElementById("Sign-upButton").addEventListener("click", saveEditUser);
 }
-function editUser(event) {
 
-const UserID = event.target.getAttribute("data-id");
-
-    fetch('/Users/get/' + UserID, {method: 'get'}
-    ).then(response => response.json()
-    ).then(Users => {
-
-        if (Users.hasOwnProperty('error')) {
-            alert(Users.error);
-        } else {
-
-            document.getElementById("editHeading").innerHTML = 'Editing ' + Users.Username + ':';
-
-            document.getElementById("UserID").value = UserID;
-            document.getElementById("FirstName").value = Users.FirstName;
-            document.getElementById("LastName").value = Users.LastName;
-            document.getElementById("DateOfBirth").value = Users.DateOfBirth;
-            document.getElementById("Gender").value = Users.Gender;
-            document.getElementById("Age").value = Users.Age;
-            document.getElementById("Username").value = Users.Username;
-            document.getElementById("Password").value = Users.Password;
-
-            document.getElementById("listDiv").style.display = 'none';
-            document.getElementById("editDiv").style.display = 'block';
-        }
-    });
-}
 
 function saveEditUser(event) {
 
@@ -77,6 +50,7 @@ function saveEditUser(event) {
     let apiPath = '';
     if (UserID === '') {
         apiPath = '/Users/add';
+        window.location.href = '/client/login.html'
     } else {
         apiPath = '/Users/update';
     }
@@ -90,7 +64,6 @@ function saveEditUser(event) {
         } else {
             document.getElementById("listDiv").style.display = 'block';
             document.getElementById("editDiv").style.display = 'none';
-            window.location.href = '/client/index.html'
         }
     });
 

@@ -10,7 +10,7 @@ import javax.ws.rs.core.MediaType;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-@Path("Exercise")
+@Path("Exercises")
 public class Exercises {
     @GET
     @Path("list")

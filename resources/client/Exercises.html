@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercise Page</title>
+</head>
+<head>
+    <title>Exercise Page</title>
+    <link rel="stylesheet" type="text/css" href="/client/css/styles.css">
+    <script src="/client/js/js.cookie.js"></script>
+    <script src="/client/js/Exercises.js"></script>
+</head>
+
+<div class="navbar">
+    <a href="index.html">Home</a>
+    <a href="foods.html">Foods</a>
+    <a href="Exercises.html">Exercises</a>
+    <a href="login.html" class="right" id="loginLink" >Log in</a>
+    <a href="login.html?logout" class="right" id="logoutLink" style="display:none" >Log out</a>
+    <a href="Sign-up.html" class="right" id="AccountLinkIn" >Register</a>
+    <a href="UserSettings.html?IN" class="right" id="AccountLinkOut" style="display:none" >Account Settings</a>
+</div>
+
+<body onload="pageLoad()">
+<div>
+
+    <div id="content">
+
+        <div id="pageHeader">
+            <div class="floatRight"><button id="newButton" class="editButton">Add New Exercise</button></div>
+            <div style="text-align:center;">
+                <h1>Exercises</h1>
+            </div>
+        </div>
+
+        <div id="listDiv"></div>
+
+        <div id="editDiv">
+            <h2 id="editHeading"></h2>
+            <form id="ExerciseForm">
+                <input type="hidden" name="ExerciseID" id="ExerciseID">
+                <div>
+                    <label for="ExerciseName" class="label">Exercise Name:</label>
+                    <input type="text" name="ExerciseName" id="ExerciseName">
+                </div>
+                <div>
+                    <label for="CalPerHour" class="label">Calories Per Hour:</label>
+                    <input type="text" name="CalPerHour" id="CalPerHour">
+                </div>
+                <div>
+                    <label for="Image" class="label">Image:</label>
+                    <input type="text" name="Image" id="Image">
+                </div>
+                <div>
+                    <input type="submit" value="Save" id="saveButton">
+                    <input type="submit" value="Cancel" id="cancelButton">
+                </div>
+
+            </form>
+
+            <form enctype="multipart/form-data" id="imageUploadForm">
+
+                <input type="file" name="file" id="file" />
+
+                <input type="submit"></button>
+
+                <h4 id="uploading" style="display:none">Uploading...</h4>
+            </form>
+
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

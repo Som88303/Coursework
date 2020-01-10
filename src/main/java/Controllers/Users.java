@@ -57,12 +57,12 @@ public class Users {
     @Produces(MediaType.APPLICATION_JSON)
     public String InsertUser(@FormDataParam("FirstName") String FirstName, @FormDataParam("LastName") String LastName,
                              @FormDataParam("DateOfBirth") String DateOfBirth, @FormDataParam("Gender") String Gender, @FormDataParam("Age") Integer Age,
-                             @FormDataParam("Username") String Username, @FormDataParam("Password") String Password, @CookieParam("token")String token) {
+                             @FormDataParam("Username") String Username, @FormDataParam("Password") String Password) {
         try {
             if (FirstName == null || LastName == null || DateOfBirth == null || Gender == null || Age == null || Username == null || Password == null) {
                 throw new Exception("One or more form data parameters are missing in the HTTP request.");
             }
-            PreparedStatement ps = Main.db.prepareStatement("INSERT INTO Users(FirstName, LastName, DateOfBirth, Gender, Age, Username, Password, token) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement ps = Main.db.prepareStatement("INSERT INTO Users(FirstName, LastName, DateOfBirth, Gender, Age, Username, Password) VALUES (?, ?, ?, ?, ?, ?, ?)");
             ps.setString(1, FirstName);
             ps.setString(2, LastName);
             ps.setString(3, DateOfBirth);
