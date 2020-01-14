@@ -51,14 +51,14 @@ public class Foods {
     @Produces(MediaType.APPLICATION_JSON)
     public String InsertFood(@FormDataParam("FoodName") String FoodName, @FormDataParam("Proteins") Integer Proteins,
                              @FormDataParam("Carbohydrates") Integer Carbohydrates, @FormDataParam("Fats") Integer Fats, @FormDataParam("CalPerHundredGrams") Integer CalPerHundredGrams,
-                             @FormDataParam("HealthyPoints") Integer HealthyPoints) {
+                             @FormDataParam("HealthyPoints") Integer HealthyPoints, @FormDataParam("Image") String Image) {
         // Takes in parameters given by the user for the corresponding attributes of the table Controllers.Foods
         try {
             if (FoodName == null || Proteins == null ||Carbohydrates == null || Fats == null || CalPerHundredGrams == null || HealthyPoints == null) {
                 throw new Exception("One or more form data parameters are missing in the HTTP request.");
             }
-            System.out.println("Controllers/Foods/add =");
-            PreparedStatement ps = Main.db.prepareStatement("INSERT INTO Foods(Foodname, Proteins, Carbohydrates, Fats, CalPerHundredGrams, HealthyPoints) VALUES (?, ?, ?, ?, ?, ?)");
+            System.out.println("Controllers/Foods/add ");
+            PreparedStatement ps = Main.db.prepareStatement("INSERT INTO Foods(Foodname, Proteins, Carbohydrates, Fats, CalPerHundredGrams, HealthyPoints, Image) VALUES (?, ?, ?, ?, ?, ?, ?)");
             // Asks for corresponding attributes
             ps.setString(1, FoodName);
             ps.setInt(2, Proteins);
@@ -66,6 +66,7 @@ public class Foods {
             ps.setInt(4, Fats);
             ps.setInt(5, CalPerHundredGrams);
             ps.setInt(6, HealthyPoints);
+            ps.setString(7, Image);
             ps.executeUpdate();                                       // Finally, adds the Food given by the the user
             return "{\"status\": \"OK\"}";
         } catch (Exception exception) {
@@ -82,7 +83,7 @@ public class Foods {
     @Produces(MediaType.APPLICATION_JSON)
     public String UpdateFood(@FormDataParam("FoodID") Integer FoodID, @FormDataParam("FoodName") String FoodName, @FormDataParam("Proteins") Integer Proteins,
                              @FormDataParam("Carbohydrates") Integer Carbohydrates, @FormDataParam("Fats") Integer Fats, @FormDataParam("CalPerHundredGrams") Integer CalPerHundredGrams,
-                             @FormDataParam("HealthyPoints") Integer HealthyPoints) {
+                             @FormDataParam("HealthyPoints") Integer HealthyPoints, @FormDataParam("Image") String Image) {
         // Takes in parameters given by the user for the corresponding attributes of the table Controllers.Foods
         try {
             if (FoodID == null || FoodName == null || Proteins == null ||Carbohydrates == null || Fats == null || CalPerHundredGrams == null || HealthyPoints == null) {
@@ -90,7 +91,7 @@ public class Foods {
             }
             System.out.println("Foods/update=" + FoodID);
             PreparedStatement ps = Main.db.prepareStatement(
-                    "UPDATE Foods SET FoodName = ?, Proteins = ?, Carbohydrates = ?, Fats = ?, CalPerHundredGrams = ? , HealthyPoints = ? WHERE FoodID = ?");
+                    "UPDATE Foods SET FoodName = ?, Proteins = ?, Carbohydrates = ?, Fats = ?, CalPerHundredGrams = ? , HealthyPoints = ? , Image = ?WHERE FoodID = ?");
             // Updates the attributes in the table Controllers.Foods for the corresponding FoodID given by the user
             ps.setString(1, FoodName);
             ps.setInt(2, Proteins);
@@ -98,7 +99,8 @@ public class Foods {
             ps.setInt(4, Fats);                 // Sets the parameters to the corresponding index in the table
             ps.setInt(5, CalPerHundredGrams);
             ps.setInt(6, HealthyPoints);
-            ps.setInt(7, FoodID);
+            ps.setString(7, Image);
+            ps.setInt(8, FoodID);
             ps.executeUpdate();                               // Finally, sets the given parameters in the database itself
             return "{\"status\": \"OK\"}";
         } catch (Exception exception) {

@@ -11,7 +11,6 @@ function pageLoad() {
     let FoodsHTML = '<table>' +
         '<tr>' +
         '<th>Image</th>' +
-        '<th>FoodID</th>' +
         '<th>FoodName</th>' +
         '<th>Proteins</th>' +
         '<th>Carbohydrates</th>' +
@@ -29,7 +28,6 @@ function pageLoad() {
             FoodsHTML += `<tr>` +
                 `<td><img src='/client/img/${Food.Image}' 
                  alt='Picture of ${Food.FoodName}' height='100px'></td>` +
-                `<td>${Food.FoodID}</td>` +
                 `<td>${Food.FoodName}</td>` +
                 `<td>${Food.Proteins}</td>` +
                 `<td>${Food.Carbohydrates}</td>` +
@@ -270,8 +268,10 @@ function uploadImage(event) {
                     alert(data.error);
                 } else {
                     document.getElementById('file').value = '';
+
                 }
                 imageUploadForm.style.display = 'block';
+
 
                 document.getElementById('uploading').style.display = 'none';
             }

@@ -11,7 +11,6 @@ function pageLoad() {
     let ExercisesHTML = '<table>' +
         '<tr>' +
         '<th>Image</th>' +
-        '<th>Exercise ID</th>' +
         '<th>Exercise Name</th>' +
         '<th>Calories Per Hour</th>' +
         '<th class="last">Options</th>' +
@@ -25,7 +24,7 @@ function pageLoad() {
             ExercisesHTML += `<tr>` +
                 `<td><img src='/client/img/${Exercise.Image}' 
                  alt='Picture of ${Exercise.ExerciseName}' height='100px'></td>` +
-                `<td>${Exercise.ExerciseID}</td>` +
+                `<td>${Exercise.ExerciseName}</td>` +
                 `<td>${Exercise.CalPerHour}</td>` +
                 `<td class="last">` +
                 `<button class='editButton' data-id='${Exercise.ExerciseID}'>Edit</button>` +
@@ -84,7 +83,7 @@ function editExercise(event) {
 
                 document.getElementById("editHeading").innerHTML = 'Editing ' + Exercise.ExerciseName + ':';
 
-                document.getElementById("ExerciseId").value = ExerciseID;
+                document.getElementById("ExerciseID").value = ExerciseID;
                 document.getElementById("ExerciseName").value = Exercise.ExerciseName;
                 document.getElementById("CalPerHour").value = Exercise.CalPerHour;
                 document.getElementById("Image").value = Exercise.Image;
@@ -215,7 +214,7 @@ function checkLogin() {
 
 }
 
-function uploadImage(event) {
+function uploadImage(event)     {
 
     event.preventDefault();
 
