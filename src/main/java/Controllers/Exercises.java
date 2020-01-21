@@ -20,7 +20,7 @@ public class Exercises {
         JSONArray list = new JSONArray();
         try {
 
-            PreparedStatement ps = Main.db.prepareStatement("SELECT ExerciseID, ExerciseName, CalPerHour FROM Exercises");
+            PreparedStatement ps = Main.db.prepareStatement("SELECT ExerciseID, ExerciseName, CalPerHour, Image FROM Exercises");
             // Selects attributes from the table Controllers.Foods
             ResultSet results = ps.executeQuery();
             // helps retrieve and modify the data inside the database
@@ -29,6 +29,7 @@ public class Exercises {
                 Exercise.put("ExerciseID", results.getInt(1));
                 Exercise.put("ExerciseName", results.getString(2));
                 Exercise.put("CalPerHour", results.getInt(3));
+                Exercise.put("Image", results.getString(4));
                 list.add(Exercise);
             }
             return list.toString();
@@ -44,17 +45,18 @@ public class Exercises {
     @Path("add")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
-    public String InsertFood(@FormDataParam("ExerciseName") String ExerciseName, @FormDataParam("CalPerHour") Integer CalPerHour){
+    public String InsertFood(@FormDataParam("ExerciseName") String ExerciseName, @FormDataParam("CalPerHour") Integer CalPerHour, @FormDataParam("Image") String Image){
         // Takes in parameters given by the user for the corresponding attributes of the table Controllers.Foods
         try {
             if (ExerciseName == null || CalPerHour == null){
                 throw new Exception("One or more form data parameters are missing in the HTTP request.");
             }
             System.out.println("Exercise/add ");
-            PreparedStatement ps = Main.db.prepareStatement("INSERT INTO Exercises(ExerciseName, CalPerHour) VALUES (?, ?)");
+            PreparedStatement ps = Main.db.prepareStatement("INSERT INTO Exercises(ExerciseName, CalPerHour, Image) VALUES (?, ?, ?)");
             // Asks for corresponding attributes
             ps.setString(1, ExerciseName);
             ps.setInt(2, CalPerHour);
+            ps.setString(3, Image);
             ps.executeUpdate();                                       // Finally, adds the Food given by the the user
             return "{\"status\": \"OK\"}";
         } catch (Exception exception) {
@@ -68,7 +70,7 @@ public class Exercises {
     @Path("update")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
-    public String UpdateFood(@FormDataParam("ExerciseID") Integer ExerciseID, @FormDataParam("ExerciseName") String ExerciseName, @FormDataParam("CalPerHour") Integer CalPerHour) {
+    public String UpdateFood(@FormDataParam("ExerciseID") Integer ExerciseID, @FormDataParam("ExerciseName") String ExerciseName, @FormDataParam("CalPerHour") Integer CalPerHour, @FormDataParam("Image") String Image) {
         // Takes in parameters given by the user for the corresponding attributes of the table Controllers.Foods
         try {
             if (ExerciseID == null || ExerciseName == null || CalPerHour == null ) {
@@ -76,11 +78,12 @@ public class Exercises {
             }
             System.out.println("Exercise/update=" + ExerciseID);
             PreparedStatement ps = Main.db.prepareStatement(
-                    "UPDATE Exercises SET ExerciseName = ?, CalPerHour = ? WHERE ExerciseID = ?");
+                    "UPDATE Exercises SET ExerciseName = ?, CalPerHour = ?, Image = ? WHERE ExerciseID = ?");
             // Updates the attributes in the table Controllers.Foods for the corresponding FoodID given by the user
             ps.setString(1, ExerciseName);
             ps.setInt(2, CalPerHour);
-            ps.setInt(3, ExerciseID);
+            ps.setString(3, Image);
+            ps.setInt(4, ExerciseID);
             ps.executeUpdate();                               // Finally, sets the given parameters in the database itself
             return "{\"status\": \"OK\"}";
         } catch (Exception exception) {

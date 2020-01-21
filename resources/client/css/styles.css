@@ -69,7 +69,7 @@ th.last {
 }
 
 
-.editButton, .deleteButton, #saveButton, #cancelButton {
+.editButton, .deleteButton, #saveButton, #cancelButton, .addButton{
     color: black;
     font-size: 14px;
     border: none;
@@ -85,6 +85,15 @@ th.last {
 
 .editButton:hover {
     background-color: grey;
+}
+
+.addButton {
+    visibility: hidden;
+    background-color:green;
+}
+
+.addButton:hover {
+    background-color: greenyellow;
 }
 
 #newButton {
@@ -112,6 +121,7 @@ th.last {
 .deleteButton:hover, #cancelButton:hover {
     background-color: firebrick;
 }
+
 
 #saveButton {
     visibility: hidden;

@@ -37,6 +37,7 @@ function pageLoad() {
                 `<td class="last">` +
                 `<button class='editButton' data-id='${Food.FoodID}'>Edit</button>` +
                 `<button class='deleteButton' data-id='${Food.FoodID}'>Delete</button>` +
+                `<button class='addButton' data-id='${Food.FoodID}'>Add</button>` +
                 `</td>` +
                 `</tr>`;
 
@@ -54,13 +55,23 @@ function pageLoad() {
         for (let button of deleteButtons) {
             button.addEventListener("click", deleteFood);
         }
+        let addButtons = document.getElementsByClassName("addButton");
+        for (let button of addButtons) {
+            button.addEventListener("click", addFood);
+        }
 
         checkLogin();
     });
 
     document.getElementById("saveButton").addEventListener("click", saveEditFood);
     document.getElementById("cancelButton").addEventListener("click", cancelEditFood);
+    document.getElementById("addButton").addEventListener("click", addFood);
     document.getElementById("imageUploadForm").addEventListener("submit", uploadImage);
+}
+
+
+function addfood(event){
+
 }
 
 function editFood(event) {
