@@ -37,7 +37,6 @@ function pageLoad() {
                 `<td class="last">` +
                 `<button class='editButton' data-id='${Food.FoodID}'>Edit</button>` +
                 `<button class='deleteButton' data-id='${Food.FoodID}'>Delete</button>` +
-                `<button class='addButton' data-id='${Food.FoodID}'>Add</button>` +
                 `</td>` +
                 `</tr>`;
 
@@ -71,6 +70,7 @@ function pageLoad() {
 
 
 function addfood(event){
+
 
 }
 

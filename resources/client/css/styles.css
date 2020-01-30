@@ -69,7 +69,7 @@ th.last {
 }
 
 
-.editButton, .deleteButton, #saveButton, #cancelButton, .addButton{
+.editButton, .deleteButton, #saveButton, #cancelButton{
     color: black;
     font-size: 14px;
     border: none;
@@ -87,14 +87,7 @@ th.last {
     background-color: grey;
 }
 
-.addButton {
-    visibility: hidden;
-    background-color:green;
-}
 
-.addButton:hover {
-    background-color: greenyellow;
-}
 
 #newButton {
     background-color: cornflowerblue;
